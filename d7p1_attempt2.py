@@ -1,4 +1,4 @@
-f = open("d7inpute.txt", "r")
+f = open("d7input.txt", "r")
 lines = f.readlines()
 
 dirs = {}  # Dict of dirs and their sizes
@@ -10,8 +10,12 @@ for i in range(0, len(lines)):
     line = lines[i].strip().split(' ')
     if line[0] == "$" and line[1] == "cd":
         if line[2] != "..":
-            curr.append(line[2])
-            dirs[line[2]] = 0
+            if len(curr) == 0:
+                path = ""
+            else:
+                path = curr[-1] + "/"
+            curr.append(path + line[2])
+            dirs[path + line[2]] = 0
         else:
             d = curr.pop()
             if dirs[d] <= 100000:
