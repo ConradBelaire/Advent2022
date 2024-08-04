@@ -8,14 +8,17 @@ for i in range(0, len(lines)):
     if line[1] == "cd":
         if line[2] != "..":
             depth = 1
-            dirs[line[2]] = 0
+            if line[2] not in dirs:
+                dirs[line[2]] = 0
+            else:
+                print(line[2], i,  dirs[line[2]])
             j = 2
             while depth > 0:
                 crawl = lines[i+j].strip().split(' ')
-                print(crawl)
+                #print(crawl)
                 if crawl[0].isnumeric():
                     dirs[line[2]] += int(crawl[0])
-                    print(line[2], crawl[1], crawl[0], dirs[line[2]])
+                    #print(line[2], crawl[1], crawl[0], dirs[line[2]])
                 elif crawl[1] == "cd":
                     if crawl[2] == "..":
                         depth -= 1
